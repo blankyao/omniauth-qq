@@ -5,10 +5,8 @@ module OmniAuth
       option :client_options, {
         :site            => "https://graph.qq.com",
         :authorize_url   => "/oauth2.0/authorize",
-		:token_method	 => :get,
-		:token_parser	 => :query,
+        :token_method    => :get,
         :token_url       => "/oauth2.0/token",
-        :parse    => :query,
         :token_formatter => lambda {|hash|
           hash[:expires_in]    = hash['expires_in'].to_i
           hash.delete('expires_in')
@@ -16,29 +14,30 @@ module OmniAuth
       }
 
       option :authorize_params, {
-		:response_type => "code"
-	  }
+        :response_type => "code"
+      }
 
       option :authorize_options, []
       option :token_params,      {
-		:grant_type => "authorization_code",
-		:state => "state"
-	  }
+        :grant_type => "authorization_code",
+        :parse => :query,
+        :state => "state"
+      }
       option :token_options,     []
 
       uid do
         response = access_token.get(
           '/oauth2.0/me'
         )
-		data = MultiJson.decode(response.body.gsub(/callback\(/, "").gsub(/\);\n/, "").strip, :symbolize_keys => true)
-		@user_id = data[:openid]
+        data = MultiJson.decode(response.body.gsub(/callback\(/, "").gsub(/\);\n/, "").strip, :symbolize_keys => true)
+        @user_id = data[:openid]
       end
 
       info do
         {
-		  :nickname => raw_info['nickname'],
-		  :avatar => raw_info['figureurl'],
-		  :gender => raw_info['gender']
+          :nickname => raw_info['nickname'],
+          :avatar => raw_info['figureurl_1'],
+          :gender => raw_info['gender']
         }
       end
 
