@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "omniauth-qq"
   gem.require_paths = ["lib"]
-  gem.version       = OmniAuth::QQ::VERSION
+  gem.version       = OmniAuth::Qq::VERSION
 
   gem.add_dependency 'omniauth', '~> 1.0'
   gem.add_dependency 'omniauth-oauth2', '~> 1.0'
