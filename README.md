@@ -15,7 +15,6 @@ A sample app:
 ```ruby
 # encoding: utf-8
 require 'sinatra'
-require 'omniauth'
 require 'omniauth-qq'
 
 use Rack::Session::Cookie
